@@ -19,7 +19,7 @@ class ImoocCrawler {
 				this.printCourseInfo(courseData)
 			})
 			res.on('error', () => {
-				console.log('获取课程数据出错！')
+				console.log(`获取课程数据出错！`)
 			})
 		})
 	}
