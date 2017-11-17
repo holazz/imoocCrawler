@@ -78,30 +78,30 @@ crawler.getData()
 
 /*ES5*/
 
-// import http from 'http'
-// import cheerio from 'cheerio'
+// var http = require('http')
+// var cheerio = require('cheerio')
 
-// const url = 'http://www.imooc.com/learn/348'
+// var url = 'http://www.imooc.com/learn/348'
 
 // function filterChapters(html){
-// 	const $ = cheerio.load(html)
+// 	var $ = cheerio.load(html)
 
-// 	let chapters = $('.chapter')
+// 	var chapters = $('.chapter')
 	
-// 	let courseData = []
+// 	var courseData = []
 // 	chapters.each(function(index, item){
-// 		let chapter = $(this)
+// 		var chapter = $(this)
 // 		chapter.find('.chapter-introubox').remove()
-// 		let	chapterTitle = chapter.find('strong').text().trim(),
+// 		var	chapterTitle = chapter.find('strong').text().trim(),
 // 			videos = chapter.find('.video').children(),
 // 			chapterData = {
 // 				chapterTitle: chapterTitle,
 // 				videos: []
 // 			}
 // 		videos.each(function(index, item){
-// 			let video = $(this).find('.J-media-item')
+// 			var video = $(this).find('.J-media-item')
 // 			video.find('.preview-btn').remove()
-// 			let	videoTitle = video.text().trim(),
+// 			var	videoTitle = video.text().trim(),
 // 				id = video.attr('href').split('video/')[1]
 // 			chapterData.videos.push({
 // 				title: videoTitle,
@@ -114,25 +114,25 @@ crawler.getData()
 // }
 
 // function printCourseInfo(courseData){
-// 	courseData.forEach((item) => {
-// 		let chapterTitle = item.chapterTitle
-// 		console.log(`${chapterTitle}\n`)
-// 		item.videos.forEach((video) => {
-// 			console.log(`【${video.id}】${video.title}\n`)
+// 	courseData.forEach(function(item){
+// 		var chapterTitle = item.chapterTitle
+// 		console.log(chapterTitle + '\n')
+// 		item.videos.forEach(function(video){
+// 			console.log('【' + video.id + '】' + video.title + '\n')
 // 		})
 // 	})
 // }
 
-// http.get(url, (res) => {
-// 	let html = ''
-// 	res.on('data', (data) => {
+// http.get(url, function(res){
+// 	var html = ''
+// 	res.on('data', function(data){
 // 		html += data
 // 	})
-// 	res.on('end', () => {
-// 		let courseData = filterChapters(html)
+// 	res.on('end', function(){
+// 		var courseData = filterChapters(html)
 // 		printCourseInfo(courseData)
 // 	})
-// 	res.on('error', () => {
+// 	res.on('error', function(){
 // 		console.log('获取课程数据出错！')
 // 	})
 // })
