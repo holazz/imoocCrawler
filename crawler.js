@@ -165,8 +165,10 @@ class ImoocCrawler {
 		})
 	}
 
-	getData(videoIds) {
-		let fetchCourseArray = []
+	async getData(videoIds) {
+		let fetchCourseArray = [],
+			ajaxNumber = []
+
 		if(typeof videoIds === 'object'){
 			for(let id of videoIds){
 				fetchCourseArray.push(this.getPageAsync(baseUrl + id))
@@ -178,7 +180,7 @@ class ImoocCrawler {
 						Object.assign(numObj, JSON.parse(data.toString()))
 					})
 					res.on('end', () => {
-						console.log(numObj.data[0].numbers)
+						ajaxNumber.push(numObj.data[0].numbers)
 					})
 					res.on('error', e => {
 						console.log(e)
@@ -195,34 +197,36 @@ class ImoocCrawler {
 						Object.assign(numObj, JSON.parse(data.toString()))
 					})
 					res.on('end', () => {
-						console.log(numObj.data[0].numbers)
+						ajaxNumber.push(numObj.data[0].numbers)
 					})
 					res.on('error', e => {
 						console.log(e)
 					})
-				})
-			
-			
+				})	
 		}
-		
-		Promise.all(fetchCourseArray)
-			.then(pages => {
-				let coursesData = []
 
-				for(let html of pages){
-					let courseData = this.filterChapters(html)
-					coursesData.push(courseData)
-				}
-				
-				coursesData.sort((a, b) => a.number < b.number)
-				this.printCourseInfo(coursesData)
-			})
+		try{
+			let pages = await Promise.all(fetchCourseArray)
+			
+			let coursesData = []
+
+			for(let [index, html] of pages.entries()){
+				let courseData = this.filterChapters(html)
+				courseData.number = ajaxNumber[index]
+				coursesData.push(courseData)
+			}
+			
+			coursesData.sort((a, b) => a.number < b.number)
+			this.printCourseInfo(coursesData)
+		}catch(err){
+			console.log(err)
+		}		
 	}
 
 }
 
 const crawler = new ImoocCrawler()
-crawler.getData([75, 134])
+crawler.getData(134)
 
 
 
