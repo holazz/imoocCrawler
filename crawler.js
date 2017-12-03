@@ -51,6 +51,7 @@ class ImoocCrawler {
 
 		return courseData
 	}
+	
 	/**
 	 * @method printCourseInfo 打印课程信息
 	 * @param  {Array} coursesData 单个课程页面数据
