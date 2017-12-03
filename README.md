@@ -1,6 +1,6 @@
 # imoocCrawler
 
-> 慕课网nodejs爬虫，用ES6实现
+> 慕课网nodejs爬虫，使用ES6/ES7语法实现
 
 ## 环境
 node `v8.9.0`    
